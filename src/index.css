@@ -1,0 +1,30 @@
+@import "tailwindcss";
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+
+:root {
+  --space-xs: clamp(0.5rem, 1vw, 0.75rem);
+  --space-sm: clamp(0.75rem, 2vw, 1rem);
+  --space-md: clamp(1rem, 3vw, 1.5rem);
+  --space-lg: clamp(1.5rem, 4vw, 2.5rem);
+  --space-xl: clamp(2rem, 6vw, 4rem);
+
+  --text-large: clamp(18ch, 40vw, 22ch);
+}
+
+.border {
+  border-color: red;
+  border-width: 2px;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+  max-width: 2650px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: hsla(62, 65%, 73%, 0.08);
+}
