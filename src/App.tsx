@@ -44,7 +44,7 @@ function App() {
   const [results, setResults] = useState(null);
 
   return (
-    <main>
+    <main className="bg-amber-50">
       <section className="mx-auto max-w-screen-2xl px-4 md:px-6 lg:px-8 xl:px-10 py-12 md:py-20">
         <Header />
       </section>
