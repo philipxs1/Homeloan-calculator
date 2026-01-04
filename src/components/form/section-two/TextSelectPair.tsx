@@ -5,8 +5,8 @@ interface TextSelectPairProps {
   selectValue: "W" | "F" | "M" | "Y";
   onTextChange: (value: number) => void;
   onSelectChange: (value: "W" | "F" | "M" | "Y") => void;
-  label: string;
-  description?: string;
+  required?: boolean;
+  error?: string | null;
 }
 
 const TextSelectPair: React.FC<TextSelectPairProps> = ({
@@ -14,25 +14,32 @@ const TextSelectPair: React.FC<TextSelectPairProps> = ({
   selectValue,
   onTextChange,
   onSelectChange,
-  label,
-  description,
+  required = false,
+  error = null,
 }) => {
   return (
     <div className="col-span-2 flex flex-col gap-1">
-      <label>{label}</label>
-      {description && <p className="text-sm text-gray-500">{description}</p>}
       <div className="grid grid-cols-2 gap-2">
-        <input
-          type="number"
-          value={textValue}
-          onChange={(e) => onTextChange(Number(e.target.value))}
-          placeholder="0"
-          className="w-full rounded-md border-2 border-gray-300 px-3 py-2"
-        />
+        <div className="w-full relative bg-white">
+          <span
+            aria-hidden={true}
+            className="absolute pointer-events-none inset-y-0 left-3 flex items-center">
+            $
+          </span>
+          <input
+            type="text"
+            value={textValue}
+            onChange={(e) => onTextChange(Number(e.target.value))}
+            placeholder="0"
+            inputMode="numeric"
+            max={1000000}
+            className="w-full rounded-md border-2 border-gray-300 px-3 py-2 pl-6 outline-none "
+          />
+        </div>
         <select
           value={selectValue}
           onChange={(e) => onSelectChange(e.target.value as "W" | "F" | "M" | "Y")}
-          className="w-full rounded-md border-2 border-gray-300 px-3 py-2">
+          className="w-full rounded-md border-2 border-gray-300 px-3 py-2 bg-white">
           <option value="W">per week</option>
           <option value="F">per fortnight</option>
           <option value="M">per month</option>

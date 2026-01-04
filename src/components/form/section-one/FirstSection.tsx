@@ -17,9 +17,7 @@ const FirstSection = () => {
 
       <hr className="col-span-2" />
 
-      <Fieldset>
-        <legend>Who is the loan for?</legend>
-
+      <Fieldset title={"Who is the loan for?"}>
         <RadioGroup
           name="is-couple"
           options={[
@@ -31,8 +29,7 @@ const FirstSection = () => {
         />
       </Fieldset>
 
-      <Fieldset>
-        <legend>What is the purpose?</legend>
+      <Fieldset title="What is the purpose?">
         <RadioGroup
           name="purpose"
           options={[
