@@ -3,13 +3,13 @@ import RightArrow from "../icons/RightArrow";
 import Spinner from "../icons/Spinner";
 
 const FormResults = () => {
-  const { borrowingAmount, isLoading, sub } = useFormContext();
+  const { borrowingAmount, isLoading } = useFormContext();
 
   return (
-    <section className="col-span-12 row-start-2 max-h-min self-start rounded-xl border-2 border-black bg-white p-8 md:col-span-5 md:col-start-8 md:row-start-1">
+    <section className="col-span-12 row-start-2 max-h-min rounded-xl border-2 border-black bg-white p-8 md:col-span-5 md:col-start-8 md:row-start-1">
       <div className="flex flex-col gap-5">
         <p className="mb-2">
-          <span className="rounded-2xl bg-primary px-2 py-1 text-xs">
+          <span className="rounded-xl bg-primary px-2 py-1 text-xs">
             Phil's Own
           </span>
         </p>
@@ -17,12 +17,12 @@ const FormResults = () => {
           {isLoading ? (
             <Spinner />
           ) : (
-            <div>
+            <div className="flex flex-col gap-5">
               <p className="text-xl font-black">
                 You may be able to borrow up to
               </p>
               <p>
-                <span className="text-2xl font-bold">
+                <span className="text-5xl font-bold">
                   $
                   {borrowingAmount !== null
                     ? borrowingAmount.toLocaleString()

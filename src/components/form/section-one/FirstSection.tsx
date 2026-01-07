@@ -3,10 +3,17 @@ import Fieldset from "../../../ui/Fieldset";
 import { RadioGroup } from "./RadioGroup";
 import { range } from "../../helpers/helpers";
 import RightArrow from "../../icons/RightArrow";
+import type { FormData } from "../../../entities/types";
 
-const FirstSection = ({ data, onChange, onNext }) => {
+interface FirstSectionProps {
+  data: FormData["applicants"];
+  onChange: (values: Partial<FormData["applicants"]>) => void;
+  onNext: () => void;
+}
+
+const FirstSection = ({ data, onChange, onNext }: FirstSectionProps) => {
   return (
-    <section className="absolute top-0 left-0 col-span-2 grid w-full grid-cols-2 gap-6">
+    <div tabIndex={-1} className="col-span-2 grid w-full grid-cols-2 gap-4">
       <h2 className="col-span-2 flex flex-col">
         <span>Step 1 of 3</span>
         <span className="text-lg font-bold">About your loan</span>
@@ -34,7 +41,9 @@ const FirstSection = ({ data, onChange, onNext }) => {
             { label: "Investment", value: "investment" },
           ]}
           selectedValue={data.purpose}
-          setSelectedValue={(value) => onChange({ purpose: value })}
+          setSelectedValue={(value) =>
+            onChange({ purpose: value as "owner" | "investment" })
+          }
         />
       </Fieldset>
 
@@ -59,7 +68,7 @@ const FirstSection = ({ data, onChange, onNext }) => {
 
       <button
         onClick={onNext}
-        className="group col-start-2 cursor-pointer justify-self-end rounded-sm border-1 border-black px-6 py-3 text-center text-sm font-bold transition-all duration-200 hover:bg-green-500 active:bg-green-600"
+        className="group col-start-2 cursor-pointer justify-self-end rounded-sm border border-black px-6 py-3 text-center text-sm font-bold transition-all duration-200 hover:bg-green-500 active:bg-green-600"
         type="button"
       >
         <span className="flex items-center gap-2">
@@ -67,7 +76,7 @@ const FirstSection = ({ data, onChange, onNext }) => {
           <RightArrow />
         </span>
       </button>
-    </section>
+    </div>
   );
 };
 

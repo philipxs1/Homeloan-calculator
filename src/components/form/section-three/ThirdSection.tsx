@@ -1,11 +1,26 @@
+import type { FormData } from "../../../entities/types";
 import Fieldset from "../../../ui/Fieldset";
 import { formatNumber, parseCurrency } from "../../helpers/helpers";
 import LeftArrow from "../../icons/LeftArrow";
 import TextSelectPair from "../TextSelectPair";
 
-const ThirdSection = ({ data, onChange, onBack, handleCalculate }) => {
+interface ThirdSectionProps {
+  data: FormData["expenses"];
+  onChange: (values: Partial<FormData["expenses"]>) => void;
+  onNext: () => void;
+  onBack: () => void;
+  isCouple: boolean;
+  handleCalculate: () => void;
+}
+
+const ThirdSection = ({
+  data,
+  onChange,
+  onBack,
+  handleCalculate,
+}: ThirdSectionProps) => {
   return (
-    <section className="col-span-2 grid h-full w-full grid-cols-2 gap-6">
+    <div tabIndex={-1} className="col-span-2 grid w-full grid-cols-2 gap-4">
       <h2 className="col-span-2 flex flex-col">
         <span>Step 3 of 3</span>
         <span className="text-lg font-bold">Your Expenses</span>
@@ -67,7 +82,7 @@ const ThirdSection = ({ data, onChange, onBack, handleCalculate }) => {
             </span>
             <input
               type="string"
-              value={formatNumber(data.creditCards)}
+              value={formatNumber(String(data.creditCards))}
               onChange={(e) =>
                 onChange({ creditCards: parseCurrency(e.target.value) })
               }
@@ -92,12 +107,12 @@ const ThirdSection = ({ data, onChange, onBack, handleCalculate }) => {
 
       <button
         onClick={handleCalculate}
-        className="col-start-2 cursor-pointer justify-self-end rounded-sm border-1 border-black px-6 py-3 text-center text-sm font-bold transition-all duration-200 hover:bg-green-500 active:bg-green-600"
+        className="col-start-2 cursor-pointer justify-self-end rounded-sm border border-black px-6 py-3 text-center text-sm font-bold transition-all duration-200 hover:bg-green-500 active:bg-green-600"
         type="button"
       >
         Calculate
       </button>
-    </section>
+    </div>
   );
 };
 

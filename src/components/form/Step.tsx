@@ -1,16 +1,25 @@
 import { type ReactNode } from "react";
+import { useFormContext } from "../../context/FormProvider";
 interface StepProps {
   index: number;
-  currentStep: number;
   children: ReactNode;
 }
 
-const Step = ({ index, currentStep, children }: StepProps) => {
+const Step = ({ index, children }: StepProps) => {
+  const { currentStep } = useFormContext();
   const offset = (index - currentStep) * 100;
+
   return (
     <section
-      className="absolute inset-0 w-full transition-transform duration-300 ease-in-out"
-      style={{ transform: `translateX(${offset}%)` }}>
+      inert={currentStep !== index ? true : undefined}
+      aria-hidden={currentStep !== index}
+      className={`absolute inset-0 w-full transition-transform duration-300 ease-in-out ${
+        currentStep === index
+          ? "pointer-events-auto opacity-100"
+          : "pointer-events-none opacity-0"
+      }`}
+      style={{ transform: `translateX(${offset}%)` }}
+    >
       {children}
     </section>
   );

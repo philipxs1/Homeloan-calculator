@@ -8,28 +8,30 @@ interface FormContextType {
   setBorrowingAmount: React.Dispatch<React.SetStateAction<number | null>>;
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  currentStep: number;
+  setCurrentStep: (step: number) => void;
 }
 
 const INITIAL_DATA = {
   applicants: { isCouple: false, purpose: "owner", dependants: 0 },
   income: {
-    salary: 0,
+    salary: "",
     salaryFrequency: "Y",
-    otherIncome: 0,
+    otherIncome: "",
     otherIncomeFrequency: "Y",
-    partnerSalary: 0,
+    partnerSalary: "",
     partnerSalaryFrequency: "Y",
-    partnerIncome: 0,
+    partnerIncome: "",
     partnerIncomeFrequency: "Y",
   },
   expenses: {
-    livingExpenses: 0,
+    livingExpenses: "",
     livingExpensesFrequency: "M",
-    homeLoans: 0,
+    homeLoans: "",
     homeLoansFrequency: "M",
-    personalLoans: 0,
+    personalLoans: "",
     personalLoansFrequency: "M",
-    creditCards: 0,
+    creditCards: "",
   },
 } satisfies FormData;
 
@@ -39,6 +41,7 @@ export const FormProvider = ({ children }: { children: ReactNode }) => {
   const [formData, setFormData] = useState<FormData>(INITIAL_DATA);
   const [borrowingAmount, setBorrowingAmount] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentStep, setCurrentStep] = useState(0);
 
   return (
     <FormContext.Provider
@@ -49,6 +52,8 @@ export const FormProvider = ({ children }: { children: ReactNode }) => {
         borrowingAmount,
         isLoading,
         setIsLoading,
+        currentStep,
+        setCurrentStep,
       }}
     >
       {children}

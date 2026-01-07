@@ -19,15 +19,11 @@
   --color-primary: hsl(135, 100%, 79%);
   --color-secondary: hsl(135, 100%, 40%);
 }
-.border {
-  border-color: red;
-  border-width: 2px;
-}
 
 body {
   font-family: "Poppins", sans-serif;
   min-height: 100vh;
   max-width: 100vw;
   margin: 0 auto;
-  background-color: white;
+  background-color: #f1f5f9;
 }

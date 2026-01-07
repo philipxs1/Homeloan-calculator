@@ -1,6 +1,6 @@
 const Header = () => {
   return (
-    <div className="flex flex-col items-center justify-center gap-(--space-lg)">
+    <div className="flex flex-col items-center justify-center gap-(--space-md)">
       <p>
         <span className="rounded-full bg-primary px-3 py-1 text-xs font-medium tracking-widest uppercase">
           Borrowing power

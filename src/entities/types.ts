@@ -8,13 +8,13 @@ export type FormData = {
     dependants: number;
   };
   income: {
-    salary: number | "";
+    salary: string | "";
     salaryFrequency: Frequency;
-    otherIncome: number | "";
+    otherIncome: string | "";
     otherIncomeFrequency: Frequency;
-    partnerSalary?: number | "";
+    partnerSalary?: string | "";
     partnerSalaryFrequency?: Frequency;
-    partnerIncome?: number | "";
+    partnerIncome?: string | "";
     partnerIncomeFrequency?: Frequency;
   };
   expenses: {

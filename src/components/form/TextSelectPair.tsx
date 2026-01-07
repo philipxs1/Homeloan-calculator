@@ -1,5 +1,6 @@
 import React from "react";
 import { formatNumber, parseCurrency } from "../helpers/helpers";
+import ArrowDown from "../icons/ArrowDown";
 
 interface TextSelectPairProps {
   textValue: string | "";
@@ -21,10 +22,7 @@ const TextSelectPair: React.FC<TextSelectPairProps> = ({
     <div className="col-start-1 flex flex-col gap-1">
       <div className="grid grid-cols-2 gap-2">
         <div className="relative w-full bg-white">
-          <span
-            aria-hidden={true}
-            className="pointer-events-none absolute inset-y-0 left-3 flex items-center"
-          >
+          <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center">
             $
           </span>
           <input
@@ -39,18 +37,27 @@ const TextSelectPair: React.FC<TextSelectPairProps> = ({
             }`}
           />
         </div>
-        <select
-          value={selectValue}
-          onChange={(e) =>
-            onSelectChange(e.target.value as "W" | "F" | "M" | "Y")
-          }
-          className="w-full rounded-md border-2 border-gray-300 bg-white px-3 py-2 outline-none focus:border-black"
-        >
-          <option value="W">per week</option>
-          <option value="F">per fortnight</option>
-          <option value="M">per month</option>
-          <option value="Y">per year</option>
-        </select>
+        <div className="relative w-full">
+          <select
+            value={selectValue}
+            onChange={(e) =>
+              onSelectChange(e.target.value as "W" | "F" | "M" | "Y")
+            }
+            className="w-full cursor-pointer appearance-none rounded-md border-2 border-gray-300 bg-white px-3 py-2 pr-10 outline-none focus:border-black"
+          >
+            <option value="W">per week</option>
+            <option value="F">per fortnight</option>
+            <option value="M">per month</option>
+            <option value="Y">per year</option>
+          </select>
+
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 right-3 flex items-center"
+          >
+            <ArrowDown />
+          </div>
+        </div>
       </div>
     </div>
   );
