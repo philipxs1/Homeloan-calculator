@@ -2,12 +2,12 @@ const Header = () => {
   return (
     <div className="flex flex-col items-center justify-center gap-(--space-lg)">
       <p>
-        <span className="rounded-full bg-green-200 px-3 py-1 text-xs font-medium uppercase tracking-widest">
+        <span className="rounded-full bg-primary px-3 py-1 text-xs font-medium tracking-widest uppercase">
           Borrowing power
         </span>
       </p>
 
-      <h1 className="mx-auto  text-center lg:whitespace-nowrap  text-6xl  font-black leading-tight">
+      <h1 className="mx-auto text-center text-6xl leading-tight font-black lg:whitespace-nowrap">
         <span className="md:block">
           <span>Home loan borrowing calculator</span>
         </span>

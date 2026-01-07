@@ -2,11 +2,12 @@ import Fieldset from "../../../ui/Fieldset";
 
 import { RadioGroup } from "./RadioGroup";
 import { range } from "../../helpers/helpers";
+import RightArrow from "../../icons/RightArrow";
 
 const FirstSection = ({ data, onChange, onNext }) => {
   return (
-    <section className="grid grid-cols-2 col-span-2 gap-6 w-full absolute left-0 top-0">
-      <h2 className="flex flex-col col-span-2">
+    <section className="absolute top-0 left-0 col-span-2 grid w-full grid-cols-2 gap-6">
+      <h2 className="col-span-2 flex flex-col">
         <span>Step 1 of 3</span>
         <span className="text-lg font-bold">About your loan</span>
       </h2>
@@ -38,13 +39,16 @@ const FirstSection = ({ data, onChange, onNext }) => {
       </Fieldset>
 
       <div className="col-span-2 flex flex-col gap-2">
-        <label htmlFor="dependants">How many dependants do you financially support</label>
+        <label htmlFor="dependants">
+          How many dependants do you financially support
+        </label>
         <select
           id="dependants"
           name="Dependants"
           value={data.dependants}
           onChange={(e) => onChange({ dependants: Number(e.target.value) })}
-          className=" w-full bg-white appearance-none outline-none py-3 pl-4  border-gray-200 border-2 rounded-md hover:border-black transition-colors transform-border">
+          className="w-full appearance-none rounded-md border-2 border-gray-200 bg-white py-3 pl-4 transition-colors outline-none transform-border hover:border-black"
+        >
           {range(0, 10).map((num) => (
             <option key={num} value={num}>
               {num}
@@ -55,9 +59,13 @@ const FirstSection = ({ data, onChange, onNext }) => {
 
       <button
         onClick={onNext}
-        className="col-start-2 justify-self-end text-center border-1 border-black text-sm font-bold px-6 py-3 rounded-sm hover:bg-green-500 active:bg-green-600 duration-200 transition-all cursor-pointer"
-        type="button">
-        Next
+        className="group col-start-2 cursor-pointer justify-self-end rounded-sm border-1 border-black px-6 py-3 text-center text-sm font-bold transition-all duration-200 hover:bg-green-500 active:bg-green-600"
+        type="button"
+      >
+        <span className="flex items-center gap-2">
+          Next
+          <RightArrow />
+        </span>
       </button>
     </section>
   );

@@ -4,39 +4,29 @@ import ThirdSection from "./section-three/ThirdSection";
 import SecondSection from "./section-two/SecondSection";
 import type { FormData } from "../../entities/types";
 import Step from "./Step";
-
-const INITIAL_DATA = {
-  applicants: { isCouple: false, purpose: "owner", dependants: 0 },
-  income: {
-    salary: 0,
-    salaryFrequency: "Y",
-    otherIncome: 0,
-    otherIncomeFrequency: "Y",
-    partnerSalary: 0,
-    partnerSalaryFrequency: "Y",
-    partnerIncome: 0,
-    partnerIncomeFrequency: "Y",
-  },
-  expenses: {
-    livingExpenses: 0,
-    livingExpensesFrequency: "M",
-    homeLoans: 0,
-    homeLoansFrequency: "M",
-    personalLoans: 0,
-    personalLoansFrequency: "M",
-    creditCards: 0,
-  },
-} satisfies FormData;
+import { useFormContext } from "../../context/FormProvider";
+import { calculateBorrowingAmount, delay } from "../helpers/helpers";
 
 const HomeLoanForm = () => {
-  const [formData, setFormData] = useState<FormData>(INITIAL_DATA);
   const [currentStep, setCurrentStep] = useState<number>(0);
+  const { formData, setFormData, setBorrowingAmount, setIsLoading } =
+    useFormContext();
 
-  function handleCalculate() {
-    console.log(formData);
+  async function handleCalculate() {
+    setIsLoading(true);
+
+    await delay(2000);
+    const borrowing = calculateBorrowingAmount(formData);
+
+    setBorrowingAmount(borrowing);
+
+    setIsLoading(false);
   }
 
-  const updateForm = <T extends keyof FormData>(section: T, values: Partial<FormData[T]>) => {
+  const updateForm = <T extends keyof FormData>(
+    section: T,
+    values: Partial<FormData[T]>,
+  ) => {
     setFormData((prev) => ({
       ...prev,
       [section]: {
@@ -47,10 +37,11 @@ const HomeLoanForm = () => {
   };
 
   return (
-    <div className="col-span-12 md:col-span-6 lg:col-start-2 ">
+    <div className="col-span-12 md:col-span-6 lg:col-start-2">
       <form
         aria-label="Borrowing amount calc input"
-        className="w-full relative overflow-hidden h-170 ">
+        className="relative h-170 w-full overflow-hidden"
+      >
         <div className="relative">
           <Step index={0} currentStep={currentStep}>
             <FirstSection

@@ -15,6 +15,10 @@
   --text-large: clamp(18ch, 40vw, 22ch);
 }
 
+@theme {
+  --color-primary: hsl(135, 100%, 79%);
+  --color-secondary: hsl(135, 100%, 40%);
+}
 .border {
   border-color: red;
   border-width: 2px;

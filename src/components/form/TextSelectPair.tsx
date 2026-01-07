@@ -1,10 +1,10 @@
 import React from "react";
-import { formatNumber, parseCurrency } from "../../helpers/helpers";
+import { formatNumber, parseCurrency } from "../helpers/helpers";
 
 interface TextSelectPairProps {
-  textValue: number | "";
+  textValue: string | "";
   selectValue: "W" | "F" | "M" | "Y";
-  onTextChange: (value: number) => void;
+  onTextChange: (value: string) => void;
   onSelectChange: (value: "W" | "F" | "M" | "Y") => void;
   required?: boolean;
   error?: string | null;
@@ -15,16 +15,16 @@ const TextSelectPair: React.FC<TextSelectPairProps> = ({
   selectValue,
   onTextChange,
   onSelectChange,
-  required = false,
-  error = null,
+  error,
 }) => {
   return (
     <div className="col-start-1 flex flex-col gap-1">
       <div className="grid grid-cols-2 gap-2">
-        <div className="w-full relative bg-white">
+        <div className="relative w-full bg-white">
           <span
             aria-hidden={true}
-            className="absolute pointer-events-none inset-y-0 left-3 flex items-center">
+            className="pointer-events-none absolute inset-y-0 left-3 flex items-center"
+          >
             $
           </span>
           <input
@@ -34,13 +34,18 @@ const TextSelectPair: React.FC<TextSelectPairProps> = ({
             placeholder="0"
             inputMode="numeric"
             max={1000000}
-            className="w-full rounded-md border-2 border-gray-300 px-3 py-2 pl-6 outline-none "
+            className={`w-full rounded-md border-2 py-2 pl-6 outline-none focus:border-black ${
+              error ? "border-red-500" : "border-gray-300"
+            }`}
           />
         </div>
         <select
           value={selectValue}
-          onChange={(e) => onSelectChange(e.target.value as "W" | "F" | "M" | "Y")}
-          className="w-full rounded-md border-2 border-gray-300 px-3 py-2 bg-white">
+          onChange={(e) =>
+            onSelectChange(e.target.value as "W" | "F" | "M" | "Y")
+          }
+          className="w-full rounded-md border-2 border-gray-300 bg-white px-3 py-2 outline-none focus:border-black"
+        >
           <option value="W">per week</option>
           <option value="F">per fortnight</option>
           <option value="M">per month</option>

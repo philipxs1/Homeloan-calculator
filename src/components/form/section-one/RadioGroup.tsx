@@ -16,10 +16,11 @@ export const RadioGroup = <T,>({
   return (
     <div
       role="radiogroup"
-      className="relative mt-1 grid h-12 grid-cols-2 rounded-md bg-gray-100 overflow-hidden border-2 border-gray-200">
+      className="relative mt-1 grid h-12 grid-cols-2 overflow-hidden rounded-md border-2 border-gray-200 bg-gray-100"
+    >
       <div
         aria-hidden="true"
-        className={`absolute h-full w-1/2 rounded-md bg-white transition-transform duration-200 border-black border-2 ease-out`}
+        className={`absolute h-full w-1/2 rounded-md border-2 border-black bg-white transition-transform duration-200 ease-out`}
         style={{ transform: `translateX(${selectedIndex * 100}%)` }}
       />
 
@@ -27,16 +28,19 @@ export const RadioGroup = <T,>({
         <label
           key={idx}
           htmlFor={`${name}-${idx}`}
-          className="relative z-10 flex cursor-pointer items-center justify-center">
+          className="relative z-10 flex cursor-pointer items-center justify-center"
+        >
           <input
             id={`${name}-${idx}`}
             type="radio"
             name={name}
-            className="sr-only peer"
+            className="peer sr-only"
             checked={selectedValue === opt.value}
             onChange={() => setSelectedValue(opt.value)}
           />
-          <span className="text-sm font-normal peer-checked:font-bold">{opt.label}</span>
+          <span className="text-sm font-normal peer-checked:font-bold">
+            {opt.label}
+          </span>
         </label>
       ))}
     </div>
