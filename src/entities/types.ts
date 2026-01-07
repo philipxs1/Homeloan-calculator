@@ -12,10 +12,10 @@ export type FormData = {
     salaryFrequency: Frequency;
     otherIncome: number | "";
     otherIncomeFrequency: Frequency;
-    otherApplicant?: number | "";
-    otherApplicantFrequency?: Frequency;
-    otherApplicantIncome?: number | "";
-    otherApplicantIncomeFrequency?: Frequency;
+    partnerSalary?: number | "";
+    partnerSalaryFrequency?: Frequency;
+    partnerIncome?: number | "";
+    partnerIncomeFrequency?: Frequency;
   };
   expenses: {
     livingExpenses: number | "";

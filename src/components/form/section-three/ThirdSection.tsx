@@ -1,7 +1,7 @@
 import Fieldset from "../../../ui/Fieldset";
 import TextSelectPair from "../section-two/TextSelectPair";
 
-const ThirdSection = ({ data, onChange, onBack }) => {
+const ThirdSection = ({ data, onChange, onBack, handleCalculate }) => {
   return (
     <section className="grid grid-cols-2 col-span-2 gap-6 w-full h-full">
       <h2 className="flex flex-col col-span-2">
@@ -72,6 +72,7 @@ const ThirdSection = ({ data, onChange, onBack }) => {
       </button>
 
       <button
+        onClick={handleCalculate}
         className="col-start-2 justify-self-end text-center border-1 border-black text-sm font-bold px-6 py-3 rounded-sm hover:bg-green-500 active:bg-green-600 duration-200 transition-all cursor-pointer"
         type="button">
         Calculate

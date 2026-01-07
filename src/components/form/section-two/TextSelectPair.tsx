@@ -1,4 +1,5 @@
 import React from "react";
+import { formatNumber, parseCurrency } from "../../helpers/helpers";
 
 interface TextSelectPairProps {
   textValue: number | "";
@@ -18,7 +19,7 @@ const TextSelectPair: React.FC<TextSelectPairProps> = ({
   error = null,
 }) => {
   return (
-    <div className="col-span-2 flex flex-col gap-1">
+    <div className="col-start-1 flex flex-col gap-1">
       <div className="grid grid-cols-2 gap-2">
         <div className="w-full relative bg-white">
           <span
@@ -28,8 +29,8 @@ const TextSelectPair: React.FC<TextSelectPairProps> = ({
           </span>
           <input
             type="text"
-            value={textValue}
-            onChange={(e) => onTextChange(Number(e.target.value))}
+            value={formatNumber(textValue)}
+            onChange={(e) => onTextChange(parseCurrency(e.target.value))}
             placeholder="0"
             inputMode="numeric"
             max={1000000}

@@ -3,7 +3,6 @@ import FormResults from "./components/form/FormResults";
 
 import Header from "./components/Header";
 import HomeLoanForm from "./components/form/HomeLoanForm";
-import { useState } from "react";
 
 type FormData = {
   step1: {
@@ -20,23 +19,6 @@ type FormData = {
     livingExpenses: number;
     creditCardLimits: number;
   };
-};
-
-const initialFormData: FormData = {
-  step1: {
-    isCouple: null,
-    propertyUsage: null,
-    dependants: 0,
-  },
-  step2: {
-    primaryIncome: 0,
-    secondaryIncome: 0,
-    incomeFrequency: "Y",
-  },
-  step3: {
-    livingExpenses: 0,
-    creditCardLimits: 0,
-  },
 };
 
 function App() {

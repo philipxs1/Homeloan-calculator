@@ -12,3 +12,16 @@ export const range = (start: number, end: number, step: number = 1): number[] =>
 
   return output;
 };
+
+export const formatNumber = (value: string) => {
+  if (value === "") return "";
+
+  const number = Number(value);
+  if (isNaN(number)) return "";
+
+  return new Intl.NumberFormat("en-AU", {
+    maximumFractionDigits: 0,
+  }).format(number);
+};
+
+export const parseCurrency = (value: string) => value.replace(/[^\d]/g, "");

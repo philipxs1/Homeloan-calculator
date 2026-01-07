@@ -3,7 +3,7 @@ import FirstSection from "./section-one/FirstSection";
 import ThirdSection from "./section-three/ThirdSection";
 import SecondSection from "./section-two/SecondSection";
 import type { FormData } from "../../entities/types";
-import Step from "./step";
+import Step from "./Step";
 
 const INITIAL_DATA = {
   applicants: { isCouple: false, purpose: "owner", dependants: 0 },
@@ -12,10 +12,10 @@ const INITIAL_DATA = {
     salaryFrequency: "Y",
     otherIncome: 0,
     otherIncomeFrequency: "Y",
-    otherApplicant: 0,
-    otherApplicantFrequency: "Y",
-    otherApplicantIncome: 0,
-    otherApplicantIncomeFrequency: "Y",
+    partnerSalary: 0,
+    partnerSalaryFrequency: "Y",
+    partnerIncome: 0,
+    partnerIncomeFrequency: "Y",
   },
   expenses: {
     livingExpenses: 0,
@@ -31,6 +31,10 @@ const INITIAL_DATA = {
 const HomeLoanForm = () => {
   const [formData, setFormData] = useState<FormData>(INITIAL_DATA);
   const [currentStep, setCurrentStep] = useState<number>(0);
+
+  function handleCalculate() {
+    console.log(formData);
+  }
 
   const updateForm = <T extends keyof FormData>(section: T, values: Partial<FormData[T]>) => {
     setFormData((prev) => ({
@@ -69,6 +73,7 @@ const HomeLoanForm = () => {
               data={formData.expenses}
               onChange={(values) => updateForm("expenses", values)}
               onBack={() => setCurrentStep(1)}
+              handleCalculate={handleCalculate}
             />
           </Step>
         </div>
