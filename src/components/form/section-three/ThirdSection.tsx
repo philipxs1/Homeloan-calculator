@@ -7,9 +7,9 @@ import TextSelectPair from "../TextSelectPair";
 interface ThirdSectionProps {
   data: FormData["expenses"];
   onChange: (values: Partial<FormData["expenses"]>) => void;
-  onNext: () => void;
+
   onBack: () => void;
-  isCouple: boolean;
+
   handleCalculate: () => void;
 }
 
