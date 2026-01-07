@@ -38,7 +38,7 @@ export const RadioGroup = <T,>({
             checked={selectedValue === opt.value}
             onChange={() => setSelectedValue(opt.value)}
           />
-          <span className="md: text-sm text-xs font-normal peer-checked:font-bold">
+          <span className="text-xs font-normal peer-checked:font-bold md:text-sm">
             {opt.label}
           </span>
         </label>

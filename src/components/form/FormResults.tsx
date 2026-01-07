@@ -38,7 +38,7 @@ const FormResults = () => {
         {borrowingAmount !== null && (
           <div className="flex items-center justify-between">
             <button
-              className="group col-start-2 cursor-pointer justify-self-end rounded-sm border-1 border-black px-6 py-3 text-center text-sm font-bold"
+              className="group col-start-2 cursor-pointer justify-self-end rounded-sm border border-black px-6 py-3 text-center text-sm font-bold"
               type="button"
             >
               <span className="flex items-center gap-2">
