@@ -32,8 +32,10 @@ const ThirdSection = ({
         description="E.g. groceries, petrol, bills, utilities or entertainment"
       >
         <TextSelectPair
-          textValue={data.livingExpenses}
-          onTextChange={(value) => onChange({ livingExpenses: value })}
+          textValue={String(data.livingExpenses)}
+          onTextChange={(value) =>
+            onChange({ livingExpenses: Number(parseCurrency(value)) })
+          }
           selectValue={data.livingExpensesFrequency}
           onSelectChange={(value) =>
             onChange({ livingExpensesFrequency: value })
@@ -46,8 +48,10 @@ const ThirdSection = ({
         description="For any existing loans"
       >
         <TextSelectPair
-          textValue={data.homeLoans}
-          onTextChange={(value) => onChange({ homeLoans: value })}
+          textValue={String(data.homeLoans)}
+          onTextChange={(value) =>
+            onChange({ homeLoans: Number(parseCurrency(value)) })
+          }
           selectValue={data.homeLoansFrequency}
           onSelectChange={(value) => onChange({ homeLoansFrequency: value })}
         />
@@ -59,8 +63,10 @@ const ThirdSection = ({
         description="For personal or car loan repayments"
       >
         <TextSelectPair
-          textValue={data.personalLoans}
-          onTextChange={(value) => onChange({ personalLoans: value })}
+          textValue={String(data.personalLoans)}
+          onTextChange={(value) =>
+            onChange({ personalLoans: Number(parseCurrency(value)) })
+          }
           selectValue={data.personalLoansFrequency}
           onSelectChange={(value) =>
             onChange({ personalLoansFrequency: value })
@@ -84,7 +90,7 @@ const ThirdSection = ({
               type="string"
               value={formatNumber(String(data.creditCards))}
               onChange={(e) =>
-                onChange({ creditCards: parseCurrency(e.target.value) })
+                onChange({ creditCards: Number(parseCurrency(e.target.value)) })
               }
               placeholder="0"
               inputMode="numeric"

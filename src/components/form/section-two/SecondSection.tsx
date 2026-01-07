@@ -69,9 +69,9 @@ const SecondSection = ({
       >
         <TextSelectPair
           error={errors.salary}
-          textValue={data.salary}
+          textValue={String(data.salary ?? "")}
           onTextChange={(value) => {
-            onChange({ salary: value });
+            onChange({ salary: value === "" ? "" : Number(value) });
             if (!isInvalid(value)) {
               clearError("salary");
             }
@@ -92,8 +92,8 @@ const SecondSection = ({
         description="E.g commission, bonuses, rental"
       >
         <TextSelectPair
-          textValue={data.otherIncome}
-          onTextChange={(value) => onChange({ otherIncome: value })}
+          textValue={String(data.otherIncome ?? "")}
+          onTextChange={(value) => onChange({ otherIncome: value === "" ? "" : Number(value) })}
           selectValue={data.otherIncomeFrequency}
           onSelectChange={(value) => onChange({ otherIncomeFrequency: value })}
         />
@@ -108,9 +108,9 @@ const SecondSection = ({
           >
             <TextSelectPair
               error={errors.partnerSalary}
-              textValue={data.partnerSalary ?? ""}
+              textValue={String(data.partnerSalary ?? "")}
               onTextChange={(value) => {
-                onChange({ partnerSalary: value });
+                onChange({ partnerSalary: value === "" ? "" : Number(value) });
                 if (!isInvalid(value)) {
                   clearError("partnerSalary");
                 }
@@ -133,8 +133,8 @@ const SecondSection = ({
             description="E.g commission, bonuses, rental"
           >
             <TextSelectPair
-              textValue={data.partnerIncome ?? ""}
-              onTextChange={(value) => onChange({ partnerIncome: value })}
+              textValue={String(data.partnerIncome ?? "")}
+              onTextChange={(value) => onChange({ partnerIncome: value === "" ? "" : Number(value) })}
               selectValue={data.partnerIncomeFrequency ?? "M"}
               onSelectChange={(value) =>
                 onChange({ partnerIncomeFrequency: value })
