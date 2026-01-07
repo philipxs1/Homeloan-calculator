@@ -41,7 +41,7 @@ const FormResults = () => {
               className="group col-start-2 cursor-pointer justify-self-end rounded-sm border border-black px-6 py-3 text-center text-sm font-bold"
               type="button"
             >
-              <span className="flex items-center gap-2">
+              <span className="flex items-center gap-2 text-xs md:text-lg">
                 Get Started!
                 <RightArrow />
               </span>
@@ -52,7 +52,7 @@ const FormResults = () => {
                   "https://phil-portfolio-black.vercel.app/")
               }
               type="button"
-              className="transform cursor-pointer rounded-lg bg-black px-12 py-3 text-secondary transition-colors duration-200 hover:bg-secondary hover:text-black"
+              className="transform cursor-pointer rounded-lg bg-black px-12 py-3 text-xs text-secondary transition-colors duration-200 hover:bg-secondary hover:text-black md:text-lg"
             >
               click on me!
             </button>
