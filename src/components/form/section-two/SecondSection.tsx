@@ -2,19 +2,17 @@ import React, { useState } from "react";
 import TextSelectPair from "./TextSelectPair";
 import Fieldset from "../../../ui/Fieldset";
 
-const SecondSection = () => {
-  const [salaryAmount, setSalaryAmount] = useState<number | "">("");
-  const [salaryFrequency, setSalaryFrequency] = useState<"W" | "F" | "M" | "Y">("Y");
+const SecondSection = ({ data, onChange, onNext, onBack, isCouple }) => {
   const [error, setError] = useState<string | null>(null);
 
-  const handleNext = () => {
-    if (salaryAmount === "" || salaryAmount <= 0) {
+  const handleNext = (onNext) => {
+    if (data.salary === "" || data.salary <= 0) {
       setError("Salary is required");
       return;
     }
     setError(null);
+    onNext();
     // proceed to next step
-    console.log("Next step", { salaryAmount, salaryFrequency });
   };
 
   return (
@@ -27,10 +25,10 @@ const SecondSection = () => {
       <hr className="col-span-2" />
       <Fieldset title="Your Salary" description="Income before tax, and excluding super">
         <TextSelectPair
-          textValue={salaryAmount}
-          onTextChange={setSalaryAmount}
-          selectValue={salaryFrequency}
-          onSelectChange={setSalaryFrequency}
+          textValue={data.salary}
+          onTextChange={(value) => onChange({ salary: value })}
+          selectValue={data.salaryFrequency}
+          onSelectChange={(value) => onChange({ salaryFrequency: value })}
         />
       </Fieldset>
 
@@ -38,22 +36,46 @@ const SecondSection = () => {
 
       <Fieldset title="Other income" description="E.g commission, bonuses, rental">
         <TextSelectPair
-          textValue={salaryAmount}
-          onTextChange={setSalaryAmount}
-          selectValue={salaryFrequency}
-          onSelectChange={setSalaryFrequency}
+          textValue={data.otherIncome}
+          onTextChange={(value) => onChange({ otherIncome: value })}
+          selectValue={data.OtherIncomeFrequency}
+          onSelectChange={(value) => onChange({ OtherIncomeFrequency: value })}
         />
       </Fieldset>
+
+      {isCouple && (
+        <>
+          {" "}
+          <Fieldset title="Your Salary" description="Income before tax, and excluding super">
+            <TextSelectPair
+              textValue={data.salary}
+              onTextChange={(value) => onChange({ salary: value })}
+              selectValue={data.salaryFrequency}
+              onSelectChange={(value) => onChange({ salaryFrequency: value })}
+            />
+          </Fieldset>
+          <Fieldset title="Other income" description="E.g commission, bonuses, rental">
+            <TextSelectPair
+              textValue={data.otherIncome}
+              onTextChange={(value) => onChange({ otherIncome: value })}
+              selectValue={data.OtherIncomeFrequency}
+              onSelectChange={(value) => onChange({ OtherIncomeFrequency: value })}
+            />
+          </Fieldset>{" "}
+        </>
+      )}
+
       <button
+        onClick={onBack}
         className="col-start-1 pl-5 text-center w-max  text-sm font-bold  rounded-sm cursor-pointer"
         type="button">
         Back
       </button>
 
       <button
+        onClick={() => handleNext(onNext)}
         className="col-start-2 justify-self-end text-center border-1 border-black text-sm font-bold px-6 py-3 rounded-sm hover:bg-green-500 active:bg-green-600 duration-200 transition-all cursor-pointer"
-        type="button"
-        onClick={handleNext}>
+        type="button">
         Next
       </button>
     </section>

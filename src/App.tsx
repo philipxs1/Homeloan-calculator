@@ -40,16 +40,13 @@ const initialFormData: FormData = {
 };
 
 function App() {
-  const [formData, setFormData] = useState<FormData>(initialFormData);
-  const [results, setResults] = useState(null);
-
   return (
     <main className="bg-amber-50">
       <section className="mx-auto max-w-screen-2xl px-4 md:px-6 lg:px-8 xl:px-10 py-12 md:py-20">
         <Header />
       </section>
       <section className="mx-auto max-w-screen-2xl px-4 md:px-6 lg:px-8 xl:px-10 py-12 md:py-20">
-        <div className="grid grid-cols-12 gap-y-12 gap-x-0 md:w-full md:grid-rows-[max-content_1fr]">
+        <div className="grid  grid-cols-12 gap-y-12 gap-x-0 md:w-full  md:gap-8 md:grid-rows-1 mx-auto max-w-7xl ">
           <HomeLoanForm />
           <FormResults />
         </div>
