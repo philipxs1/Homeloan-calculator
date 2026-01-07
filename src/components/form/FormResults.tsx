@@ -35,10 +35,10 @@ const FormResults = () => {
 
         <hr className="col-span-2" />
 
-        {borrowingAmount !== null && (
-          <div className="flex items-center justify-between">
+        {borrowingAmount === null && (
+          <div className="flex items-center justify-between gap-2">
             <button
-              className="group col-start-2 cursor-pointer justify-self-end rounded-sm border border-black px-6 py-3 text-center text-sm font-bold"
+              className="group col-start-2 cursor-pointer justify-self-end rounded-sm border border-black px-6 py-3 text-center text-sm font-bold text-nowrap"
               type="button"
             >
               <span className="flex items-center gap-2 text-xs md:text-lg">
@@ -52,7 +52,7 @@ const FormResults = () => {
                   "https://phil-portfolio-black.vercel.app/")
               }
               type="button"
-              className="transform cursor-pointer rounded-lg bg-black px-12 py-3 text-xs text-secondary transition-colors duration-200 hover:bg-secondary hover:text-black md:text-lg"
+              className="transform cursor-pointer rounded-lg bg-black px-8 py-3 text-xs text-nowrap text-secondary transition-colors duration-200 hover:bg-secondary hover:text-black md:text-lg"
             >
               click on me!
             </button>
