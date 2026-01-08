@@ -35,7 +35,7 @@ const FormResults = () => {
 
         <hr className="col-span-2" />
 
-        {borrowingAmount === null && (
+        {borrowingAmount !== null && (
           <div className="flex items-center justify-between gap-2">
             <button
               className="group col-start-2 cursor-pointer justify-self-end rounded-sm border border-black px-6 py-3 text-center text-sm font-bold text-nowrap"
