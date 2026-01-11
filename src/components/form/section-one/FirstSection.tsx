@@ -1,15 +1,18 @@
 import Fieldset from "../../../ui/Fieldset";
 
-import { RadioGroup } from "./RadioGroup";
 import { range } from "../../helpers/helpers";
 import RightArrow from "../../icons/RightArrow";
 import type { FormData } from "../../../entities/types";
+import { RadioGroup } from "../inputs/RadioGroup";
+import ArrowWrapper from "../../../ui/ArrowWrapper";
 
 interface FirstSectionProps {
   data: FormData["applicants"];
   onChange: (values: Partial<FormData["applicants"]>) => void;
   onNext: () => void;
 }
+
+console.log("rendered firstSelection");
 
 const FirstSection = ({ data, onChange, onNext }: FirstSectionProps) => {
   return (
@@ -68,13 +71,13 @@ const FirstSection = ({ data, onChange, onNext }: FirstSectionProps) => {
 
       <button
         onClick={onNext}
-        className="group col-start-2 cursor-pointer justify-self-end rounded-sm border border-black px-6 py-3 text-center text-sm font-bold transition-all duration-200 hover:bg-green-500 active:bg-green-600"
+        className="group btn-next col-start-2"
         type="button"
       >
-        <span className="flex items-center gap-2">
+        <ArrowWrapper>
           Next
           <RightArrow />
-        </span>
+        </ArrowWrapper>
       </button>
     </div>
   );

@@ -1,10 +1,10 @@
-import { useFormContext } from "../../context/FormProvider";
+import { useFormContext } from "../../hooks/useFormContext";
 import RightArrow from "../icons/RightArrow";
 import Spinner from "../icons/Spinner";
 
 const FormResults = () => {
   const { borrowingAmount, isLoading } = useFormContext();
-
+  console.log("rendered form results");
   return (
     <section className="col-span-12 row-start-2 max-h-min rounded-xl border-2 border-black bg-white p-8 md:col-span-5 md:col-start-8 md:row-start-1">
       <div className="flex flex-col gap-5">

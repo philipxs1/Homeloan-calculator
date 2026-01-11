@@ -1,5 +1,6 @@
 import { type ReactNode } from "react";
-import { useFormContext } from "../../context/FormProvider";
+import { useFormContext } from "../../hooks/useFormContext";
+
 interface StepProps {
   index: number;
   children: ReactNode;

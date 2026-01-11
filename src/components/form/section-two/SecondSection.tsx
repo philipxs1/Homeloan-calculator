@@ -1,9 +1,10 @@
 import { useState } from "react";
-import TextSelectPair from "../TextSelectPair";
+import TextSelectPair from "../inputs/TextSelectPair";
 import Fieldset from "../../../ui/Fieldset";
 import LeftArrow from "../../icons/LeftArrow";
 import RightArrow from "../../icons/RightArrow";
 import type { FormData } from "../../../entities/types";
+import ArrowWrapper from "../../../ui/ArrowWrapper";
 
 type Errors = {
   salary?: string;
@@ -55,6 +56,8 @@ const SecondSection = ({
     });
   };
 
+  console.log("rendered secondSelection");
+
   return (
     <div tabIndex={-1} className="col-span-2 grid w-full grid-cols-2 gap-2">
       <h2 className="col-span-2 flex flex-col">
@@ -93,7 +96,9 @@ const SecondSection = ({
       >
         <TextSelectPair
           textValue={String(data.otherIncome ?? "")}
-          onTextChange={(value) => onChange({ otherIncome: value === "" ? "" : Number(value) })}
+          onTextChange={(value) =>
+            onChange({ otherIncome: value === "" ? "" : Number(value) })
+          }
           selectValue={data.otherIncomeFrequency}
           onSelectChange={(value) => onChange({ otherIncomeFrequency: value })}
         />
@@ -134,7 +139,9 @@ const SecondSection = ({
           >
             <TextSelectPair
               textValue={String(data.partnerIncome ?? "")}
-              onTextChange={(value) => onChange({ partnerIncome: value === "" ? "" : Number(value) })}
+              onTextChange={(value) =>
+                onChange({ partnerIncome: value === "" ? "" : Number(value) })
+              }
               selectValue={data.partnerIncomeFrequency ?? "M"}
               onSelectChange={(value) =>
                 onChange({ partnerIncomeFrequency: value })
@@ -146,24 +153,24 @@ const SecondSection = ({
 
       <button
         onClick={onBack}
-        className="group col-start-1 w-max cursor-pointer rounded-sm pl-5 text-center text-sm font-bold"
+        className="group btn-back col-start-1"
         type="button"
       >
-        <span className="flex items-center gap-2">
+        <ArrowWrapper>
           <LeftArrow />
           Back
-        </span>
+        </ArrowWrapper>
       </button>
 
       <button
         onClick={handleNext}
-        className="group col-start-2 cursor-pointer justify-self-end rounded-sm border border-black px-6 py-3 text-center text-sm font-bold transition-all duration-200 hover:bg-green-500 active:bg-green-600"
+        className="group btn-next col-start-2"
         type="button"
       >
-        <span className="flex items-center gap-2">
+        <ArrowWrapper>
           Next
           <RightArrow />
-        </span>
+        </ArrowWrapper>
       </button>
     </div>
   );

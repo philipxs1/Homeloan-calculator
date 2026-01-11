@@ -1,16 +1,6 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import type { FormData } from "../entities/types";
-
-interface FormContextType {
-  formData: FormData;
-  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
-  borrowingAmount: number | null;
-  setBorrowingAmount: React.Dispatch<React.SetStateAction<number | null>>;
-  isLoading: boolean;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  currentStep: number;
-  setCurrentStep: (step: number) => void;
-}
+import { FormContext } from "./FormContext";
 
 const INITIAL_DATA = {
   applicants: { isCouple: false, purpose: "owner", dependants: 0 },
@@ -35,8 +25,6 @@ const INITIAL_DATA = {
   },
 } satisfies FormData;
 
-export const FormContext = createContext<FormContextType | null>(null);
-
 export const FormProvider = ({ children }: { children: ReactNode }) => {
   const [formData, setFormData] = useState<FormData>(INITIAL_DATA);
   const [borrowingAmount, setBorrowingAmount] = useState<number | null>(null);
@@ -59,10 +47,4 @@ export const FormProvider = ({ children }: { children: ReactNode }) => {
       {children}
     </FormContext.Provider>
   );
-};
-
-export const useFormContext = () => {
-  const ctx = useContext(FormContext);
-  if (!ctx) throw new Error("context error");
-  return ctx;
 };

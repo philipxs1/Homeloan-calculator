@@ -1,6 +1,6 @@
 const Header = () => {
   return (
-    <div className="flex flex-col items-center justify-center gap-(--space-md)">
+    <header className="flex flex-col items-center justify-center gap-(--space-md)">
       <p>
         <span className="rounded-full bg-primary px-3 py-1 text-xs font-medium tracking-widest uppercase">
           Borrowing power
@@ -16,7 +16,7 @@ const Header = () => {
       <p className="mx-auto max-w-[50ch] text-center text-xl text-gray-700">
         Run the numbers to get an upfront estimate of your borrowing power.
       </p>
-    </div>
+    </header>
   );
 };
 

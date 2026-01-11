@@ -1,8 +1,9 @@
 import type { FormData } from "../../../entities/types";
+import ArrowWrapper from "../../../ui/ArrowWrapper";
 import Fieldset from "../../../ui/Fieldset";
 import { formatNumber, parseCurrency } from "../../helpers/helpers";
 import LeftArrow from "../../icons/LeftArrow";
-import TextSelectPair from "../TextSelectPair";
+import TextSelectPair from "../inputs/TextSelectPair";
 
 interface ThirdSectionProps {
   data: FormData["expenses"];
@@ -19,6 +20,8 @@ const ThirdSection = ({
   onBack,
   handleCalculate,
 }: ThirdSectionProps) => {
+  console.log("rendered thirdselection");
+
   return (
     <div tabIndex={-1} className="col-span-2 grid w-full grid-cols-2 gap-4">
       <h2 className="col-span-2 flex flex-col">
@@ -100,20 +103,21 @@ const ThirdSection = ({
           </div>
         </div>
       </Fieldset>
+
       <button
         onClick={onBack}
-        className="group col-start-1 w-max cursor-pointer rounded-sm pl-5 text-center text-sm font-bold"
+        className="group btn-back col-start-1"
         type="button"
       >
-        <span className="flex items-center gap-2">
+        <ArrowWrapper>
           <LeftArrow />
           Back
-        </span>
+        </ArrowWrapper>
       </button>
 
       <button
         onClick={handleCalculate}
-        className="col-start-2 cursor-pointer justify-self-end rounded-sm border border-black px-6 py-3 text-center text-sm font-bold transition-all duration-200 hover:bg-green-500 active:bg-green-600"
+        className="btn-next col-start-2"
         type="button"
       >
         Calculate

@@ -1,10 +1,12 @@
 import FirstSection from "./section-one/FirstSection";
-import ThirdSection from "./section-three/ThirdSection";
 import SecondSection from "./section-two/SecondSection";
+import ThirdSection from "./section-three/ThirdSection";
 import type { FormData } from "../../entities/types";
 import Step from "./Step";
-import { useFormContext } from "../../context/FormProvider";
+
 import { calculateBorrowingAmount, delay } from "../helpers/helpers";
+import { useFormContext } from "../../hooks/useFormContext";
+import { useCallback } from "react";
 
 const HomeLoanForm = () => {
   const {
@@ -15,16 +17,16 @@ const HomeLoanForm = () => {
     setCurrentStep,
   } = useFormContext();
 
-  async function handleCalculate() {
+  const handleCalculate = useCallback(async () => {
     setIsLoading(true);
-
-    await delay(2000);
-    const borrowing = calculateBorrowingAmount(formData);
-
-    setBorrowingAmount(borrowing);
-
-    setIsLoading(false);
-  }
+    try {
+      await delay(2000);
+      const borrowing = calculateBorrowingAmount(formData);
+      setBorrowingAmount(borrowing);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [formData, setIsLoading, setBorrowingAmount]);
 
   const updateForm = <T extends keyof FormData>(
     section: T,
@@ -38,7 +40,7 @@ const HomeLoanForm = () => {
       },
     }));
   };
-
+  console.log("rendered homeloandform");
   return (
     <form
       aria-label="Borrowing amount calc input"

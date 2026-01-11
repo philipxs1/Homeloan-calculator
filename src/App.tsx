@@ -3,21 +3,22 @@ import FormResults from "./components/form/FormResults";
 import Header from "./components/Header";
 import HomeLoanForm from "./components/form/HomeLoanForm";
 import { FormProvider } from "./context/FormProvider";
+import Container from "./ui/Container";
 
 function App() {
   return (
     <main>
-      <section className="mx-auto max-w-screen-2xl px-4 py-2 md:px-6 md:py-20 lg:px-8 xl:px-10">
+      <Container>
         <Header />
-      </section>
-      <section className="mx-auto max-w-screen-2xl px-4 py-12 md:px-6 md:py-20 lg:px-8 xl:px-10">
+      </Container>
+      <Container>
         <div className="md:grid-rows-2-[max-content_1fr] mx-auto grid max-w-7xl grid-cols-12 gap-x-0 gap-y-12 md:w-full md:grid-rows-1 md:gap-8">
           <FormProvider>
             <HomeLoanForm />
             <FormResults />
           </FormProvider>
         </div>
-      </section>
+      </Container>
     </main>
   );
 }

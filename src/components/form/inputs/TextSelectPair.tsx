@@ -1,6 +1,6 @@
 import React from "react";
-import { formatNumber, parseCurrency } from "../helpers/helpers";
-import ArrowDown from "../icons/ArrowDown";
+import { formatNumber, parseCurrency } from "../../helpers/helpers";
+import ArrowDown from "../../icons/ArrowDown";
 
 interface TextSelectPairProps {
   textValue: string | "";
@@ -31,6 +31,7 @@ const TextSelectPair: React.FC<TextSelectPairProps> = ({
             onChange={(e) => onTextChange(parseCurrency(e.target.value))}
             placeholder="0"
             inputMode="numeric"
+            aria-invalid={!!error}
             max={1000000}
             className={`w-full rounded-md border-2 py-2 pl-6 outline-none focus:border-black ${
               error ? "border-red-500" : "border-gray-300"
