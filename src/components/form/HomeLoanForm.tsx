@@ -21,6 +21,7 @@ const HomeLoanForm = () => {
     setIsLoading(true);
     try {
       await delay(2000);
+      console.log(formData);
       const borrowing = calculateBorrowingAmount(formData);
       setBorrowingAmount(borrowing);
     } finally {
@@ -40,7 +41,7 @@ const HomeLoanForm = () => {
       },
     }));
   };
-  console.log("rendered homeloandform");
+
   return (
     <form
       aria-label="Borrowing amount calc input"

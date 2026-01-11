@@ -3,7 +3,7 @@ import { formatNumber, parseCurrency } from "../../helpers/helpers";
 import ArrowDown from "../../icons/ArrowDown";
 
 interface TextSelectPairProps {
-  textValue: string | "";
+  textValue: string;
   selectValue: "W" | "F" | "M" | "Y";
   onTextChange: (value: string) => void;
   onSelectChange: (value: "W" | "F" | "M" | "Y") => void;

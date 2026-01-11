@@ -34,11 +34,11 @@ const SecondSection = ({
   const handleNext = () => {
     const newErrors: Errors = {};
 
-    if (isInvalid(data.salary)) {
+    if (isInvalid(data.salary.amount)) {
       newErrors.salary = "Your salary is required";
     }
 
-    if (isCouple && isInvalid(data.partnerSalary)) {
+    if (isCouple && isInvalid(data.partnerSalary?.amount)) {
       newErrors.partnerSalary = "Other applicant's salary is required";
     }
 
@@ -56,8 +56,6 @@ const SecondSection = ({
     });
   };
 
-  console.log("rendered secondSelection");
-
   return (
     <div tabIndex={-1} className="col-span-2 grid w-full grid-cols-2 gap-2">
       <h2 className="col-span-2 flex flex-col">
@@ -72,15 +70,22 @@ const SecondSection = ({
       >
         <TextSelectPair
           error={errors.salary}
-          textValue={String(data.salary ?? "")}
+          textValue={data.salary.amount}
           onTextChange={(value) => {
-            onChange({ salary: value === "" ? "" : Number(value) });
+            onChange({
+              salary: {
+                ...data.salary,
+                amount: value,
+              },
+            });
             if (!isInvalid(value)) {
               clearError("salary");
             }
           }}
-          selectValue={data.salaryFrequency}
-          onSelectChange={(value) => onChange({ salaryFrequency: value })}
+          selectValue={data.salary.frequency}
+          onSelectChange={(value) =>
+            onChange({ salary: { ...data.salary, frequency: value } })
+          }
         />
 
         {errors.salary && (
@@ -95,34 +100,51 @@ const SecondSection = ({
         description="E.g commission, bonuses, rental"
       >
         <TextSelectPair
-          textValue={String(data.otherIncome ?? "")}
+          textValue={data.otherIncome.amount}
           onTextChange={(value) =>
-            onChange({ otherIncome: value === "" ? "" : Number(value) })
+            onChange({
+              otherIncome: {
+                ...data.otherIncome,
+                amount: value,
+              },
+            })
           }
-          selectValue={data.otherIncomeFrequency}
-          onSelectChange={(value) => onChange({ otherIncomeFrequency: value })}
+          selectValue={data.otherIncome.frequency}
+          onSelectChange={(value) =>
+            onChange({ otherIncome: { ...data.otherIncome, frequency: value } })
+          }
         />
       </Fieldset>
 
       {isCouple && (
         <>
-          {" "}
           <Fieldset
             title="Other applicant"
             description="Income before tax, and excluding super"
           >
             <TextSelectPair
               error={errors.partnerSalary}
-              textValue={String(data.partnerSalary ?? "")}
+              textValue={data.partnerSalary?.amount ?? ""}
               onTextChange={(value) => {
-                onChange({ partnerSalary: value === "" ? "" : Number(value) });
+                onChange({
+                  partnerSalary: {
+                    ...data.partnerSalary,
+                    amount: value,
+                    frequency: data.partnerSalary?.frequency ?? "M",
+                  },
+                });
                 if (!isInvalid(value)) {
                   clearError("partnerSalary");
                 }
               }}
-              selectValue={data.partnerSalaryFrequency ?? "M"}
+              selectValue={data.partnerSalary?.frequency ?? "M"}
               onSelectChange={(value) =>
-                onChange({ partnerSalaryFrequency: value })
+                onChange({
+                  partnerSalary: {
+                    amount: data.partnerSalary?.amount ?? "",
+                    frequency: value ?? "M",
+                  },
+                })
               }
             />
             {errors.partnerSalary && (
@@ -138,13 +160,17 @@ const SecondSection = ({
             description="E.g commission, bonuses, rental"
           >
             <TextSelectPair
-              textValue={String(data.partnerIncome ?? "")}
+              textValue={data.partnerIncome?.amount}
               onTextChange={(value) =>
-                onChange({ partnerIncome: value === "" ? "" : Number(value) })
+                onChange({
+                  partnerIncome: { ...data.partnerIncome, amount: value },
+                })
               }
-              selectValue={data.partnerIncomeFrequency ?? "M"}
+              selectValue={data.partnerIncome.frequency}
               onSelectChange={(value) =>
-                onChange({ partnerIncomeFrequency: value })
+                onChange({
+                  partnerIncome: { ...data.partnerIncome, frequency: value },
+                })
               }
             />
           </Fieldset>{" "}

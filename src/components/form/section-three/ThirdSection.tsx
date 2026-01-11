@@ -20,8 +20,6 @@ const ThirdSection = ({
   onBack,
   handleCalculate,
 }: ThirdSectionProps) => {
-  console.log("rendered thirdselection");
-
   return (
     <div tabIndex={-1} className="col-span-2 grid w-full grid-cols-2 gap-4">
       <h2 className="col-span-2 flex flex-col">
@@ -35,13 +33,17 @@ const ThirdSection = ({
         description="E.g. groceries, petrol, bills, utilities or entertainment"
       >
         <TextSelectPair
-          textValue={String(data.livingExpenses)}
+          textValue={String(data.livingExpenses.amount)}
           onTextChange={(value) =>
-            onChange({ livingExpenses: Number(parseCurrency(value)) })
+            onChange({
+              livingExpenses: { ...data.livingExpenses, amount: value },
+            })
           }
-          selectValue={data.livingExpensesFrequency}
+          selectValue={data.livingExpenses.frequency}
           onSelectChange={(value) =>
-            onChange({ livingExpensesFrequency: value })
+            onChange({
+              livingExpenses: { ...data.livingExpenses, frequency: value },
+            })
           }
         />
       </Fieldset>
@@ -51,12 +53,19 @@ const ThirdSection = ({
         description="For any existing loans"
       >
         <TextSelectPair
-          textValue={String(data.homeLoans)}
+          textValue={String(data.homeLoans.amount)}
           onTextChange={(value) =>
-            onChange({ homeLoans: Number(parseCurrency(value)) })
+            onChange({
+              homeLoans: {
+                ...data.homeLoans,
+                amount: parseCurrency(value),
+              },
+            })
           }
-          selectValue={data.homeLoansFrequency}
-          onSelectChange={(value) => onChange({ homeLoansFrequency: value })}
+          selectValue={data.homeLoans.frequency}
+          onSelectChange={(value) =>
+            onChange({ homeLoans: { ...data.homeLoans, frequency: value } })
+          }
         />
       </Fieldset>
 
@@ -66,13 +75,20 @@ const ThirdSection = ({
         description="For personal or car loan repayments"
       >
         <TextSelectPair
-          textValue={String(data.personalLoans)}
+          textValue={String(data.personalLoans.amount)}
           onTextChange={(value) =>
-            onChange({ personalLoans: Number(parseCurrency(value)) })
+            onChange({
+              personalLoans: {
+                ...data.personalLoans,
+                amount: parseCurrency(value),
+              },
+            })
           }
-          selectValue={data.personalLoansFrequency}
+          selectValue={data.personalLoans.frequency}
           onSelectChange={(value) =>
-            onChange({ personalLoansFrequency: value })
+            onChange({
+              personalLoans: { ...data.personalLoans, frequency: value },
+            })
           }
         />
       </Fieldset>

@@ -10,6 +10,7 @@ export interface FormContextType {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   currentStep: number;
   setCurrentStep: (step: number) => void;
+  resetForm: () => void;
 }
 
 export const FormContext = createContext<FormContextType | null>(null);

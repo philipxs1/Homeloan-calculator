@@ -1,29 +1,33 @@
 // types.ts
-type Frequency = "W" | "F" | "M" | "Y";
+export type Frequency = "W" | "F" | "M" | "Y";
+
+export type AmountWithFrequency = {
+  amount: string;
+  frequency: Frequency;
+};
 
 export type FormData = {
   applicants: {
-    isCouple: boolean | null;
-    purpose: "owner" | "investment" | null;
+    isCouple: boolean;
+    purpose: "owner" | "investment";
     dependants: number;
   };
   income: {
-    salary: number | "";
-    salaryFrequency: Frequency;
-    otherIncome: number | "";
-    otherIncomeFrequency: Frequency;
-    partnerSalary?: number | "";
-    partnerSalaryFrequency?: Frequency;
-    partnerIncome?: number | "";
-    partnerIncomeFrequency?: Frequency;
+    salary: AmountWithFrequency;
+
+    otherIncome: AmountWithFrequency;
+
+    partnerSalary: AmountWithFrequency;
+
+    partnerIncome: AmountWithFrequency;
   };
   expenses: {
-    livingExpenses: number | "";
-    livingExpensesFrequency: Frequency;
-    homeLoans: number | "";
-    homeLoansFrequency: Frequency;
-    personalLoans: number | "";
-    personalLoansFrequency: Frequency;
-    creditCards: number | "";
+    livingExpenses: AmountWithFrequency;
+
+    homeLoans: AmountWithFrequency;
+
+    personalLoans: AmountWithFrequency;
+
+    creditCards: number;
   };
 };

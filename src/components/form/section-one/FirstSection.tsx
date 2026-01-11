@@ -12,8 +12,6 @@ interface FirstSectionProps {
   onNext: () => void;
 }
 
-console.log("rendered firstSelection");
-
 const FirstSection = ({ data, onChange, onNext }: FirstSectionProps) => {
   return (
     <div tabIndex={-1} className="col-span-2 grid w-full grid-cols-2 gap-4">

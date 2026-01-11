@@ -3,8 +3,8 @@ import RightArrow from "../icons/RightArrow";
 import Spinner from "../icons/Spinner";
 
 const FormResults = () => {
-  const { borrowingAmount, isLoading } = useFormContext();
-  console.log("rendered form results");
+  const { borrowingAmount, isLoading, resetForm } = useFormContext();
+
   return (
     <section className="col-span-12 row-start-2 max-h-min rounded-xl border-2 border-black bg-white p-8 md:col-span-5 md:col-start-8 md:row-start-1">
       <div className="flex flex-col gap-5">
@@ -40,9 +40,10 @@ const FormResults = () => {
             <button
               className="group col-start-2 cursor-pointer justify-self-end rounded-sm border border-black px-6 py-3 text-center text-sm font-bold text-nowrap"
               type="button"
+              onClick={resetForm}
             >
               <span className="flex items-center gap-2 text-xs md:text-lg">
-                Get Started!
+                Reset Form
                 <RightArrow />
               </span>
             </button>
