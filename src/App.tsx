@@ -7,14 +7,15 @@ import Container from "./ui/Container";
 
 function App() {
   return (
-    <main>
+    <main className="py-6 md:py-0">
       <Container>
         <Header />
       </Container>
       <Container>
-        <div className="md:grid-rows-2-[max-content_1fr] mx-auto grid max-w-7xl grid-cols-12 gap-x-0 gap-y-12 md:w-full md:grid-rows-1 md:gap-8">
+        <div className="md:grid-rows-2-[max-content_1fr] relative mx-auto grid max-w-7xl grid-cols-12 gap-x-0 gap-y-12 pt-10 md:w-full md:grid-rows-1 md:gap-2 md:pt-5">
           <FormProvider>
             <HomeLoanForm />
+
             <FormResults />
           </FormProvider>
         </div>
