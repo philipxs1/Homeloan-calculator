@@ -12,7 +12,7 @@ function App() {
         <Header />
       </Container>
       <Container>
-        <div className="md:grid-rows-2-[max-content_1fr] relative mx-auto grid max-w-7xl grid-cols-12 gap-x-0 gap-y-12 pt-10 md:w-full md:grid-rows-1 md:gap-2 md:pt-5">
+        <div className="md:grid-rows-2-[max-content_1fr] mx-auto grid max-w-7xl grid-cols-12 gap-x-0 gap-y-12 pt-10 md:w-full md:grid-rows-1 md:gap-2 md:pt-5">
           <FormProvider>
             <HomeLoanForm />
 

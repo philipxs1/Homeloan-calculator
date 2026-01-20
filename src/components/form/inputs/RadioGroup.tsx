@@ -1,6 +1,7 @@
 interface RadioGroupProps<T> {
   options: { label: string; value: T }[];
   selectedValue: T;
+
   setSelectedValue: (value: T) => void;
   name: string;
 }
@@ -9,6 +10,7 @@ export const RadioGroup = <T,>({
   options,
   selectedValue,
   setSelectedValue,
+
   name,
 }: RadioGroupProps<T>) => {
   const selectedIndex = options.findIndex((opt) => opt.value === selectedValue);

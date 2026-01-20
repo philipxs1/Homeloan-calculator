@@ -31,3 +31,16 @@ export type FormData = {
     creditCards: number;
   };
 };
+
+export type FormAction =
+  | { type: "NEXT_STEP" }
+  | { type: "PREV_STEP" }
+  | { type: "SET_STEP"; payload: number }
+  | { type: "SET_LOADING"; payload: boolean }
+  | { type: "SET_BORROWING"; payload: number | null }
+  | {
+      type: "UPDATE_FORM";
+      section: keyof FormData;
+      payload: Partial<FormData[keyof FormData]>;
+    }
+  | { type: "RESET_FORM" };

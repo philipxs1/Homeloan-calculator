@@ -1,16 +1,19 @@
 import { createContext } from "react";
-import type { FormData } from "../entities/types";
+
+import type { FormState } from "./FormProvider";
 
 export interface FormContextType {
-  formData: FormData;
-  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
-  borrowingAmount: number | null;
-  setBorrowingAmount: React.Dispatch<React.SetStateAction<number | null>>;
-  isLoading: boolean;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  currentStep: number;
-  setCurrentStep: (step: number) => void;
+  state: FormState;
   resetForm: () => void;
+  nextStep: () => void;
+  prevStep: () => void;
+  setStep: (step: number) => void;
+  setLoading: (loading: boolean) => void;
+  setBorrowing: (amount: number) => void;
+  updateForm: <T extends keyof FormState["formData"]>(
+    section: T,
+    payload: Partial<FormState["formData"][T]>,
+  ) => void;
 }
 
 export const FormContext = createContext<FormContextType | null>(null);

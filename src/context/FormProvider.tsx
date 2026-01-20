@@ -1,59 +1,87 @@
-import { useState, useMemo, type ReactNode, useCallback } from "react";
-import type { FormData } from "../entities/types";
+import { useMemo, type ReactNode, useReducer } from "react";
+import type { FormAction, FormData } from "../entities/types";
 import { FormContext } from "./FormContext";
+import { INITIAL_DATA } from "../data/data";
 
-const INITIAL_DATA = {
-  applicants: { isCouple: false, purpose: "owner", dependants: 0 },
+export interface FormState {
+  formData: FormData;
+  currentStep: number;
+  borrowingAmount: number | null;
+  isloading: boolean;
+}
 
-  income: {
-    salary: { amount: "", frequency: "Y" },
-    otherIncome: { amount: "", frequency: "Y" },
-    partnerSalary: { amount: "", frequency: "Y" },
-    partnerIncome: { amount: "", frequency: "Y" },
-  },
-  expenses: {
-    livingExpenses: { amount: "", frequency: "M" },
-    homeLoans: { amount: "", frequency: "M" },
-    personalLoans: { amount: "", frequency: "M" },
-    creditCards: 0,
-  },
-} satisfies FormData;
+const initialState: FormState = {
+  formData: INITIAL_DATA,
+  currentStep: 0,
+  borrowingAmount: null,
+  isloading: false,
+};
+
+function reducer(state: FormState, action: FormAction): FormState {
+  switch (action.type) {
+    case "NEXT_STEP":
+      return { ...state, currentStep: state.currentStep + 1 };
+    case "PREV_STEP":
+      return { ...state, currentStep: state.currentStep - 1 };
+    case "SET_STEP":
+      return { ...state, currentStep: action.payload };
+    case "SET_LOADING":
+      return { ...state, isloading: action.payload };
+    case "SET_BORROWING":
+      return { ...state, borrowingAmount: action.payload };
+    case "UPDATE_FORM":
+      return {
+        ...state,
+        formData: {
+          ...state.formData,
+          [action.section]: {
+            ...state.formData[action.section],
+            ...action.payload,
+          },
+        },
+      };
+    case "RESET_FORM":
+      return {
+        formData: INITIAL_DATA,
+        currentStep: 0,
+        borrowingAmount: null,
+        isloading: false,
+      };
+
+    default:
+      return state;
+  }
+}
 
 export const FormProvider = ({ children }: { children: ReactNode }) => {
-  const [formData, setFormData] = useState<FormData>(INITIAL_DATA);
-  const [borrowingAmount, setBorrowingAmount] = useState<number | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [currentStep, setCurrentStep] = useState(0);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  const resetForm = useCallback(() => {
-    setFormData(INITIAL_DATA);
-    setBorrowingAmount(null);
-    setCurrentStep(0);
-  }, []);
+  const nextStep = () => dispatch({ type: "NEXT_STEP" });
+  const prevStep = () => dispatch({ type: "PREV_STEP" });
+  const setStep = (n: number) => dispatch({ type: "SET_STEP", payload: n });
+  const setLoading = (bool: boolean) =>
+    dispatch({ type: "SET_LOADING", payload: bool });
+  const setBorrowing = (n: number | null) =>
+    dispatch({ type: "SET_BORROWING", payload: n });
+  const updateForm = <T extends keyof FormData>(
+    section: T,
+    payload: Partial<FormData[T]>,
+  ) => dispatch({ type: "UPDATE_FORM", section, payload });
+
+  const resetForm = () => dispatch({ type: "RESET_FORM" });
 
   const value = useMemo(
     () => ({
-      formData,
-      setFormData,
-      setBorrowingAmount,
-      borrowingAmount,
-      isLoading,
-      setIsLoading,
-      currentStep,
-      setCurrentStep,
+      state,
+      nextStep,
+      prevStep,
+      setStep,
+      setLoading,
+      setBorrowing,
+      updateForm,
       resetForm,
     }),
-    [
-      formData,
-      setFormData,
-      borrowingAmount,
-      setBorrowingAmount,
-      isLoading,
-      setIsLoading,
-      currentStep,
-      setCurrentStep,
-      resetForm,
-    ],
+    [state],
   );
 
   return <FormContext.Provider value={value}>{children}</FormContext.Provider>;

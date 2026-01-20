@@ -2,17 +2,14 @@ import Fieldset from "../../../ui/Fieldset";
 
 import { range } from "../../helpers/helpers";
 import RightArrow from "../../icons/RightArrow";
-import type { FormData } from "../../../entities/types";
+
 import { RadioGroup } from "../inputs/RadioGroup";
 import ArrowWrapper from "../../../ui/ArrowWrapper";
+import { useFormContext } from "../../../hooks/useFormContext";
 
-interface FirstSectionProps {
-  data: FormData["applicants"];
-  onChange: (values: Partial<FormData["applicants"]>) => void;
-  onNext: () => void;
-}
-
-const FirstSection = ({ data, onChange, onNext }: FirstSectionProps) => {
+const FirstSection = () => {
+  const { state, updateForm, nextStep } = useFormContext();
+  const section = "applicants";
   return (
     <div tabIndex={-1} className="col-span-2 grid w-full grid-cols-2 gap-4">
       <h2 className="col-span-2 flex flex-col">
@@ -29,8 +26,8 @@ const FirstSection = ({ data, onChange, onNext }: FirstSectionProps) => {
             { label: "Just me", value: false },
             { label: "Two of us", value: true },
           ]}
-          selectedValue={data.isCouple}
-          setSelectedValue={(value) => onChange({ isCouple: value })}
+          selectedValue={state.formData[section].isCouple}
+          setSelectedValue={(value) => updateForm(section, { isCouple: value })}
         />
       </Fieldset>
 
@@ -41,9 +38,9 @@ const FirstSection = ({ data, onChange, onNext }: FirstSectionProps) => {
             { label: "Owner-occupied", value: "owner" },
             { label: "Investment", value: "investment" },
           ]}
-          selectedValue={data.purpose}
+          selectedValue={state.formData[section].purpose}
           setSelectedValue={(value) =>
-            onChange({ purpose: value as "owner" | "investment" })
+            updateForm(section, { purpose: value as "owner" | "investment" })
           }
         />
       </Fieldset>
@@ -55,8 +52,10 @@ const FirstSection = ({ data, onChange, onNext }: FirstSectionProps) => {
         <select
           id="dependants"
           name="Dependants"
-          value={data.dependants}
-          onChange={(e) => onChange({ dependants: Number(e.target.value) })}
+          value={state.formData[section].dependants}
+          onChange={(e) =>
+            updateForm(section, { dependants: Number(e.target.value) })
+          }
           className="w-full appearance-none rounded-md border-2 border-gray-200 bg-white py-3 pl-4 transition-colors outline-none transform-border hover:border-black"
         >
           {range(0, 10).map((num) => (
@@ -68,7 +67,7 @@ const FirstSection = ({ data, onChange, onNext }: FirstSectionProps) => {
       </div>
 
       <button
-        onClick={onNext}
+        onClick={nextStep}
         className="group btn-next col-start-2"
         type="button"
       >

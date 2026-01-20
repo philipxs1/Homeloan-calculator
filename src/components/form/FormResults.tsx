@@ -3,7 +3,9 @@ import RightArrow from "../icons/RightArrow";
 import Spinner from "../icons/Spinner";
 
 const FormResults = () => {
-  const { borrowingAmount, isLoading, resetForm } = useFormContext();
+  const { state, resetForm } = useFormContext();
+  const isLoading = state.isloading;
+  const borrowingAmount = state.borrowingAmount;
 
   return (
     <section className="col-span-12 row-start-2 max-h-min rounded-xl border-2 border-black bg-white p-8 md:col-span-5 md:col-start-8 md:row-start-1">

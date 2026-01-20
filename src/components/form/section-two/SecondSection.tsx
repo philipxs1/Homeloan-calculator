@@ -3,30 +3,20 @@ import TextSelectPair from "../inputs/TextSelectPair";
 import Fieldset from "../../../ui/Fieldset";
 import LeftArrow from "../../icons/LeftArrow";
 import RightArrow from "../../icons/RightArrow";
-import type { FormData } from "../../../entities/types";
+
 import ArrowWrapper from "../../../ui/ArrowWrapper";
+import { useFormContext } from "../../../hooks/useFormContext";
 
 type Errors = {
   salary?: string;
   partnerSalary?: string;
 };
 
-interface SecondSectionProps {
-  data: FormData["income"];
-  onChange: (values: Partial<FormData["income"]>) => void;
-  onNext: () => void;
-  onBack: () => void;
-  isCouple: boolean;
-}
-
-const SecondSection = ({
-  data,
-  onChange,
-  onNext,
-  onBack,
-  isCouple,
-}: SecondSectionProps) => {
+const SecondSection = () => {
+  const { updateForm, state, nextStep, prevStep } = useFormContext();
   const [errors, setErrors] = useState<Errors>({});
+  const section = "income";
+  const isCouple = state.formData.applicants.isCouple;
 
   const isInvalid = (value: string | number | undefined) =>
     value === undefined || value === "" || Number(value) <= 0;
@@ -34,11 +24,11 @@ const SecondSection = ({
   const handleNext = () => {
     const newErrors: Errors = {};
 
-    if (isInvalid(data.salary.amount)) {
+    if (isInvalid(state.formData[section].salary.amount)) {
       newErrors.salary = "Your salary is required";
     }
 
-    if (isCouple && isInvalid(data.partnerSalary?.amount)) {
+    if (isCouple && isInvalid(state.formData[section].partnerSalary?.amount)) {
       newErrors.partnerSalary = "Other applicant's salary is required";
     }
 
@@ -46,7 +36,7 @@ const SecondSection = ({
 
     if (Object.keys(newErrors).length > 0) return;
 
-    onNext();
+    nextStep();
   };
 
   const clearError = (field: keyof Errors) => {
@@ -69,22 +59,20 @@ const SecondSection = ({
         description="Income before tax, and excluding super"
       >
         <TextSelectPair
-          error={errors.salary}
-          textValue={data.salary.amount}
+          textValue={state.formData[section].salary.amount}
           onTextChange={(value) => {
-            onChange({
-              salary: {
-                ...data.salary,
-                amount: value,
-              },
+            updateForm(section, {
+              salary: { ...state.formData[section].salary, amount: value },
             });
             if (!isInvalid(value)) {
               clearError("salary");
             }
           }}
-          selectValue={data.salary.frequency}
+          selectValue={state.formData[section].salary.frequency}
           onSelectChange={(value) =>
-            onChange({ salary: { ...data.salary, frequency: value } })
+            updateForm(section, {
+              salary: { ...state.formData[section].salary, frequency: value },
+            })
           }
         />
 
@@ -100,18 +88,23 @@ const SecondSection = ({
         description="E.g commission, bonuses, rental"
       >
         <TextSelectPair
-          textValue={data.otherIncome.amount}
-          onTextChange={(value) =>
-            onChange({
+          textValue={state.formData[section].otherIncome.amount}
+          onTextChange={(value) => {
+            updateForm(section, {
               otherIncome: {
-                ...data.otherIncome,
+                ...state.formData[section].otherIncome,
                 amount: value,
               },
-            })
-          }
-          selectValue={data.otherIncome.frequency}
+            });
+          }}
+          selectValue={state.formData[section].otherIncome.frequency}
           onSelectChange={(value) =>
-            onChange({ otherIncome: { ...data.otherIncome, frequency: value } })
+            updateForm(section, {
+              otherIncome: {
+                ...state.formData[section].otherIncome,
+                frequency: value,
+              },
+            })
           }
         />
       </Fieldset>
@@ -123,26 +116,24 @@ const SecondSection = ({
             description="Income before tax, and excluding super"
           >
             <TextSelectPair
-              error={errors.partnerSalary}
-              textValue={data.partnerSalary?.amount ?? ""}
+              textValue={state.formData[section].partnerSalary.amount}
               onTextChange={(value) => {
-                onChange({
+                updateForm(section, {
                   partnerSalary: {
-                    ...data.partnerSalary,
+                    ...state.formData[section].partnerSalary,
                     amount: value,
-                    frequency: data.partnerSalary?.frequency ?? "M",
                   },
                 });
                 if (!isInvalid(value)) {
                   clearError("partnerSalary");
                 }
               }}
-              selectValue={data.partnerSalary?.frequency ?? "M"}
+              selectValue={state.formData[section].partnerSalary.frequency}
               onSelectChange={(value) =>
-                onChange({
+                updateForm(section, {
                   partnerSalary: {
-                    amount: data.partnerSalary?.amount ?? "",
-                    frequency: value ?? "M",
+                    ...state.formData[section].partnerSalary,
+                    frequency: value,
                   },
                 })
               }
@@ -160,16 +151,22 @@ const SecondSection = ({
             description="E.g commission, bonuses, rental"
           >
             <TextSelectPair
-              textValue={data.partnerIncome?.amount}
-              onTextChange={(value) =>
-                onChange({
-                  partnerIncome: { ...data.partnerIncome, amount: value },
-                })
-              }
-              selectValue={data.partnerIncome.frequency}
+              textValue={state.formData[section].partnerIncome.amount}
+              onTextChange={(value) => {
+                updateForm(section, {
+                  partnerIncome: {
+                    ...state.formData[section].partnerIncome,
+                    amount: value,
+                  },
+                });
+              }}
+              selectValue={state.formData[section].partnerIncome.frequency}
               onSelectChange={(value) =>
-                onChange({
-                  partnerIncome: { ...data.partnerIncome, frequency: value },
+                updateForm(section, {
+                  partnerIncome: {
+                    ...state.formData[section].partnerIncome,
+                    frequency: value,
+                  },
                 })
               }
             />
@@ -178,7 +175,7 @@ const SecondSection = ({
       )}
 
       <button
-        onClick={onBack}
+        onClick={prevStep}
         className="group btn-back col-start-1"
         type="button"
       >

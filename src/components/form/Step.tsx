@@ -7,14 +7,15 @@ interface StepProps {
 }
 
 const Step = ({ index, children }: StepProps) => {
-  const { currentStep } = useFormContext();
+  const { state } = useFormContext();
+  const currentStep = state.currentStep;
   const offset = (index - currentStep) * 100;
 
   return (
     <section
       inert={currentStep !== index ? true : undefined}
       aria-hidden={currentStep !== index}
-      className={`absolute inset-0 w-full transition-transform duration-300 ease-in-out ${
+      className={`inset-0 w-full transition-transform duration-300 ease-in-out ${currentStep === index ? "relative" : "absolute"} ${
         currentStep === index
           ? "pointer-events-auto opacity-100"
           : "pointer-events-none opacity-0"

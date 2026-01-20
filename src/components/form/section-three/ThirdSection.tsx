@@ -1,25 +1,34 @@
-import type { FormData } from "../../../entities/types";
+import { useCallback } from "react";
+import { useFormContext } from "../../../hooks/useFormContext";
 import ArrowWrapper from "../../../ui/ArrowWrapper";
 import Fieldset from "../../../ui/Fieldset";
-import { formatNumber, parseCurrency } from "../../helpers/helpers";
+import {
+  calculateBorrowingAmount,
+  delay,
+  formatNumber,
+  parseCurrency,
+} from "../../helpers/helpers";
 import LeftArrow from "../../icons/LeftArrow";
 import TextSelectPair from "../inputs/TextSelectPair";
 
-interface ThirdSectionProps {
-  data: FormData["expenses"];
-  onChange: (values: Partial<FormData["expenses"]>) => void;
+const ThirdSection = () => {
+  const { state, updateForm, prevStep, setLoading, setBorrowing } =
+    useFormContext();
 
-  onBack: () => void;
+  const section = "expenses";
 
-  handleCalculate: () => void;
-}
+  const handleCalculate = useCallback(async () => {
+    setLoading(true);
+    try {
+      await delay(2000);
+      console.log(state.formData);
+      const borrowing = calculateBorrowingAmount(state.formData);
+      setBorrowing(borrowing);
+    } finally {
+      setLoading(false);
+    }
+  }, [setBorrowing, setLoading, state]);
 
-const ThirdSection = ({
-  data,
-  onChange,
-  onBack,
-  handleCalculate,
-}: ThirdSectionProps) => {
   return (
     <div tabIndex={-1} className="col-span-2 grid w-full grid-cols-2 gap-4">
       <h2 className="col-span-2 flex flex-col">
@@ -33,16 +42,22 @@ const ThirdSection = ({
         description="E.g. groceries, petrol, bills, utilities or entertainment"
       >
         <TextSelectPair
-          textValue={String(data.livingExpenses.amount)}
+          textValue={String(state.formData[section].livingExpenses.amount)}
           onTextChange={(value) =>
-            onChange({
-              livingExpenses: { ...data.livingExpenses, amount: value },
+            updateForm(section, {
+              livingExpenses: {
+                ...state.formData[section].livingExpenses,
+                amount: value,
+              },
             })
           }
-          selectValue={data.livingExpenses.frequency}
+          selectValue={state.formData[section].livingExpenses.frequency}
           onSelectChange={(value) =>
-            onChange({
-              livingExpenses: { ...data.livingExpenses, frequency: value },
+            updateForm(section, {
+              livingExpenses: {
+                ...state.formData[section].livingExpenses,
+                amount: value,
+              },
             })
           }
         />
@@ -53,18 +68,23 @@ const ThirdSection = ({
         description="For any existing loans"
       >
         <TextSelectPair
-          textValue={String(data.homeLoans.amount)}
+          textValue={String(state.formData[section].homeLoans.amount)}
           onTextChange={(value) =>
-            onChange({
+            updateForm(section, {
               homeLoans: {
-                ...data.homeLoans,
-                amount: parseCurrency(value),
+                ...state.formData[section].homeLoans,
+                amount: value,
               },
             })
           }
-          selectValue={data.homeLoans.frequency}
+          selectValue={state.formData[section].homeLoans.frequency}
           onSelectChange={(value) =>
-            onChange({ homeLoans: { ...data.homeLoans, frequency: value } })
+            updateForm(section, {
+              homeLoans: {
+                ...state.formData[section].homeLoans,
+                amount: value,
+              },
+            })
           }
         />
       </Fieldset>
@@ -75,19 +95,22 @@ const ThirdSection = ({
         description="For personal or car loan repayments"
       >
         <TextSelectPair
-          textValue={String(data.personalLoans.amount)}
+          textValue={String(state.formData[section].personalLoans.amount)}
           onTextChange={(value) =>
-            onChange({
+            updateForm(section, {
               personalLoans: {
-                ...data.personalLoans,
-                amount: parseCurrency(value),
+                ...state.formData[section].personalLoans,
+                amount: value,
               },
             })
           }
-          selectValue={data.personalLoans.frequency}
+          selectValue={state.formData[section].personalLoans.frequency}
           onSelectChange={(value) =>
-            onChange({
-              personalLoans: { ...data.personalLoans, frequency: value },
+            updateForm(section, {
+              personalLoans: {
+                ...state.formData[section].personalLoans,
+                amount: value,
+              },
             })
           }
         />
@@ -107,9 +130,11 @@ const ThirdSection = ({
             </span>
             <input
               type="string"
-              value={formatNumber(String(data.creditCards))}
+              value={formatNumber(String(state.formData[section].creditCards))}
               onChange={(e) =>
-                onChange({ creditCards: Number(parseCurrency(e.target.value)) })
+                updateForm(section, {
+                  creditCards: Number(parseCurrency(e.target.value)),
+                })
               }
               placeholder="0"
               inputMode="numeric"
@@ -121,7 +146,7 @@ const ThirdSection = ({
       </Fieldset>
 
       <button
-        onClick={onBack}
+        onClick={prevStep}
         className="group btn-back col-start-1"
         type="button"
       >
